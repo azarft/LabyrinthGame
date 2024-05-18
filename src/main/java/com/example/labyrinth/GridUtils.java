@@ -5,8 +5,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
-
 public class GridUtils {
 
     public static Node getNodeByRowColumnIndex(int row, int column, GridPane gridPane) {
@@ -30,39 +28,28 @@ public class GridUtils {
         return null;
     }
 
-    public static ArrayList<String> getLabyrinthAsList(int[][] maze, int gridSize) {
-        ArrayList<String> labyrinthList = new ArrayList<>();
+    public static char[][] convertMazeToCharArray(int[][] maze) {
+        int gridSize = maze.length;
+        char[][] labyrinth = new char[gridSize][gridSize];
         for (int i = 0; i < gridSize; i++) {
-            StringBuilder row = new StringBuilder();
             for (int j = 0; j < gridSize; j++) {
-                char cellChar;
                 switch (maze[i][j]) {
                     case 2:
-                        cellChar = 'A'; // Start point
+                        labyrinth[i][j] = 'A'; // Start point
                         break;
                     case 3:
-                        cellChar = 'B'; // End point
+                        labyrinth[i][j] = 'B'; // End point
                         break;
                     case 1:
-                        cellChar = '#'; // Wall
+                        labyrinth[i][j] = '#'; // Wall
                         break;
                     case 0:
                     default:
-                        cellChar = '.'; // Free space
+                        labyrinth[i][j] = '.'; // Free space
                         break;
                 }
-                row.append(cellChar);
             }
-            labyrinthList.add(row.toString());
         }
-        return labyrinthList;
-    }
-
-    public static char[][] convertListTo2DArray(ArrayList<String> list) {
-        char[][] array = new char[list.size()][];
-        for (int i = 0; i < list.size(); i++) {
-            array[i] = list.get(i).toCharArray();
-        }
-        return array;
+        return labyrinth;
     }
 }

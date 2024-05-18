@@ -38,7 +38,6 @@ public class LabyrinthController {
     private Rectangle endPoint;
 
     private int[][] maze; // To store the maze structure
-    private MediaPlayer mediaPlayer; // MediaPlayer for background music
 
     @FXML
     protected void initialize() {
@@ -55,7 +54,8 @@ public class LabyrinthController {
             }
 
             Media media = new Media(resource.toString());
-            mediaPlayer = new MediaPlayer(media);
+            // MediaPlayer for background music
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
             mediaPlayer.play();
         } catch (Exception e) {
@@ -103,8 +103,7 @@ public class LabyrinthController {
 
     @FXML
     protected void onFindSolutionButtonClick() {
-        ArrayList<String> labyrinthList = GridUtils.getLabyrinthAsList(maze, gridSize);
-        char[][] labyrinth = GridUtils.convertListTo2DArray(labyrinthList);
+        char[][] labyrinth = GridUtils.convertMazeToCharArray(maze);
         Pair<Boolean, List<Character>> result = LabyrinthSolver.bfs(labyrinth);
 
         if (result.getKey()) {
@@ -159,7 +158,8 @@ public class LabyrinthController {
 
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-                Rectangle cell = new Rectangle(30, 30); // Adjust size as needed
+                double lenght = 450/gridSize;
+                Rectangle cell = new Rectangle(lenght, lenght); // Adjust size as needed
                 cell.setStroke(Color.BLACK);
                 cell.setFill(Color.WHITE);
                 final int row = i;
