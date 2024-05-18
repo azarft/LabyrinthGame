@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.labyrinth.LabyrinthController">
+   <children>
+      <TextField fx:id="gridSizeInput" alignment="TOP_CENTER" layoutX="65.0" layoutY="57.0" prefHeight="27.0" prefWidth="271.0" style="-fx-border-color: black;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></TextField>
+      <Button alignment="TOP_CENTER" layoutX="341.0" layoutY="57.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: black;" text="Start" textFill="WHITE" />
+      <GridPane fx:id="gridPane" alignment="TOP_CENTER" layoutX="65.0" layoutY="124.0" prefHeight="300.0" prefWidth="522.0" style="-fx-border-color: black; -fx-background-color: white;">
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints></GridPane>
+      <Button alignment="TOP_CENTER" layoutX="465.0" layoutY="57.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: red;" text="Reset" textFill="WHITE" />
+      <Button fx:id="createLabyrinthButton" layoutX="340.0" layoutY="90.0" mnemonicParsing="false" onAction="#onCreateLabyrinthButtonClick" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: yellow; -fx-border-color: black;" text="Create Labyrinth" visible="false" />
+      <Button fx:id="findSolutionButton" layoutX="464.0" layoutY="89.0" mnemonicParsing="false" onAction="#onFindSolutionButtonClick" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: green;" text="Find Solution" textFill="#f2eeee" visible="false" />
+      <Label fx:id="noSolutionLabel" layoutX="65.0" layoutY="92.0" prefHeight="27.0" prefWidth="271.0" text="No solution" textFill="#ea0000" visible="false">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+
+   </children>
+
+</AnchorPane>
