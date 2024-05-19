@@ -16,6 +16,7 @@ import javafx.util.Pair;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LabyrinthController {
     @FXML
@@ -36,6 +37,8 @@ public class LabyrinthController {
     private int gridSize;
     private Rectangle startPoint;
     private Rectangle endPoint;
+    private boolean isButtonClicked = false;
+
 
     private int[][] maze; // To store the maze structure
 
@@ -47,7 +50,7 @@ public class LabyrinthController {
     private void playBackgroundMusic() {
         try {
             // Load the MP3 file from resources
-            URL resource = getClass().getResource("/audio/background.mp3");
+            URL resource = getClass().getResource("/background.mp3");
             if (resource == null) {
                 System.err.println("Background music file not found");
                 return;
@@ -80,6 +83,7 @@ public class LabyrinthController {
             gridSizeInput.setStyle("-fx-border-color: red;");
         }
         noSolutionLabel.setVisible(false);
+        isButtonClicked = false;
     }
 
     @FXML
@@ -99,6 +103,7 @@ public class LabyrinthController {
         createLabyrinthButton.setVisible(false);
         findSolutionButton.setVisible(false);
         noSolutionLabel.setVisible(false);
+        isButtonClicked = false;
     }
 
     @FXML
@@ -112,6 +117,8 @@ public class LabyrinthController {
             displayNoSolutionMessage();
         }
         findSolutionButton.setVisible(false);
+        createLabyrinthButton.setVisible(false);
+        isButtonClicked = true;
     }
 
     private void showSolution(List<Character> path) {
@@ -172,14 +179,33 @@ public class LabyrinthController {
 
     private void handleCellClick(Rectangle cell, int row, int col) {
         if (startPoint == null) {
-            cell.setFill(Color.GREEN); // Start point
+            cell.setFill(Color.GREEN);
+            cell.setAccessibleText("Start");// Start point
             startPoint = cell;
             maze[row][col] = 2; // Mark the start point in the maze
-        } else if (endPoint == null) {
+        } else if (endPoint == null && maze[row][col] != 2) {
             cell.setFill(Color.RED); // End point
             endPoint = cell;
             maze[row][col] = 3; // Mark the end point in the maze
             createLabyrinthButton.setVisible(true); // Make the "Create Labyrinth" button visible
+        } else if (!isButtonClicked){
+            if (maze[row][col] == 1 ) {
+                cell.setFill(Color.WHITE); // End point
+                maze[row][col] = 0; // Mark the end point in the maze
+            } else if (maze[row][col] == 2) {
+                maze[row][col] = 0;
+                cell.setFill(Color.WHITE);
+                startPoint = null;
+            } else if (maze[row][col] == 3) {
+                maze[row][col] = 0;
+                cell.setFill(Color.WHITE);
+                endPoint = null;
+            } else {
+                cell.setFill(Color.BLACK); // End point
+                maze[row][col] = 1; // Mark the end point in the maze
+                findSolutionButton.setVisible(true); // Make the "Create Labyrinth" button visible
+            }
+
         }
     }
 
@@ -191,6 +217,7 @@ public class LabyrinthController {
                     if (Math.random() > 0.7) {
                         maze[i][j] = 1; // Mark as wall
                         ((Rectangle) GridUtils.getNodeByRowColumnIndex(i, j, gridPane)).setFill(Color.BLACK);
+
                     } else {
                         maze[i][j] = 0; // Mark as path
                     }
