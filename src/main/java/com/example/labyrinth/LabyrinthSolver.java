@@ -48,12 +48,10 @@ public class LabyrinthSolver {
             List<Character> path = queue.peek().getValue();
             queue.poll();
 
-            // If we reached the end point, return "true" and the path
             if (curr.getKey() == endX && curr.getValue() == endY) {
                 return new Pair<>(true, path);
             }
 
-            // Traverse in each direction
             for (int i = 0; i < directions.length; i++) {
                 int newX = curr.getKey() + move[i][0];
                 int newY = curr.getValue() + move[i][1];
@@ -67,7 +65,6 @@ public class LabyrinthSolver {
             }
         }
 
-        // If we couldn't reach the end point, return "false" and empty path
         return new Pair<>(false, new ArrayList<>());
     }
 

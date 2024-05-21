@@ -210,7 +210,6 @@ public class LabyrinthController {
     }
 
     private void generateMaze() {
-        // Example: Simple placeholder maze generation
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 if (maze[i][j] == 0) { // Only change unmarked cells
@@ -232,7 +231,6 @@ public class LabyrinthController {
     }
 
     private void displayNoSolutionMessage() {
-        Label noSolutionLabel = (Label) gridPane.getParent().lookup("#noSolutionLabel");
         noSolutionLabel.setVisible(true);
     }
 }
